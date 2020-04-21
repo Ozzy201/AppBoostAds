@@ -1,0 +1,12 @@
+<resources>
+    <string name="app_name">Universal AdsLib</string>
+
+    <string name="gcm_defaultSenderId">573904788210</string>
+    <string name="google_api_key">AIzaSyAgZi5QrRy82kukr2UsgqkLrLxsI_lzIXg</string>
+    <string name="google_app_id">1:573904788210:android:b2a139dc82f3f4b0be0e6b</string>
+    <string name="google_crash_reporting_api_key">AIzaSyAgZi5QrRy82kukr2UsgqkLrLxsI_lzIXg</string>
+    <string name="google_storage_bucket">kajjajk-358b8.appspot.com</string>
+    <string name="firebase_database_url">https://kajjajk-358b8.firebaseio.com</string>
+    <string name="default_web_client_id">573904788210-vbg3vhcumihnl9h7q74e73nrijk0ue7u.apps.googleusercontent.com</string>
+    <string name="project_id">kajjajk-358b8</string>
+</resources>
