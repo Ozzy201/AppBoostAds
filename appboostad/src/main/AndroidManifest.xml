@@ -1,5 +1,5 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="reader.softech.com.appboostad" >
+    package="ads.android.com.appboostad" >
 
     <uses-permission android:name="android.permission.INTERNET"/>
 
