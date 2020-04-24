@@ -13,6 +13,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
@@ -177,12 +178,16 @@ public class AppBoost {
 
                 int  rootName =myArr.get(randomIndex);
                 try {
-                    apptext = response.getJSONObject(rootName).getString("appName");
-                    PAKAGE_NAME = response.getJSONObject(rootName).getString("appUrl");
-                    appdesc = response.getJSONObject(rootName).getString("shortDescription");
-                    imageUrl = response.getJSONObject(rootName).getString("appIcon");
 
-                     img_path= "https://appboost.org/dashboard/images/"+imageUrl;
+
+
+                        apptext = response.getJSONObject(rootName).getString("appName");
+                        PAKAGE_NAME = response.getJSONObject(rootName).getString("appUrl");
+                        appdesc = response.getJSONObject(rootName).getString("shortDescription");
+                        imageUrl = response.getJSONObject(rootName).getString("appIcon");
+
+                        img_path = "https://appboost.org/dashboard/images/" + imageUrl;
+
 
                 } catch (JSONException e) {
                     e.printStackTrace();
@@ -237,9 +242,10 @@ public class AppBoost {
             @Override
             protected Map<String, String> getParams() throws AuthFailureError {
 
+                String extension ="&hl=en";
                 String impValue = String.valueOf(impressions);
                 Map<String, String> params = new HashMap<>();
-                params.put("AppPakage",AppPakage);
+                params.put("AppPakage",AppPakage+extension);
                 params.put("Impressions",impValue);
                 return params;
             }
@@ -375,11 +381,14 @@ public class AppBoost {
 
             else {
                 checkifaddisLoaded="Ad_Loaded_Successfully!";
-                showAds();
 
 
 
-                impressionManager();
+                    showAds();
+
+                    impressionManager();
+
+
 
 
             }
