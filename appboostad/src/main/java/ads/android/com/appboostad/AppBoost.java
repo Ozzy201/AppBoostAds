@@ -95,7 +95,7 @@ public class AppBoost {
 
         options = new RequestOptions()
                 .diskCacheStrategy(DiskCacheStrategy.ALL)
-                .override(100, 100);
+                .override(300, 300);
 
         requestQueue = Volley.newRequestQueue(activity);
 
@@ -287,6 +287,9 @@ public class AppBoost {
        appDescription.setText(appdesc);
 
         mDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+
+
+      mDialog.getWindow().getAttributes().windowAnimations=R.style.DialogSlide;
         myButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
