@@ -95,7 +95,7 @@ public class AppBoost {
 
         options = new RequestOptions()
                 .diskCacheStrategy(DiskCacheStrategy.ALL)
-                .override(300, 300);
+                .override(200, 200);
 
         requestQueue = Volley.newRequestQueue(activity);
 
@@ -202,6 +202,7 @@ public class AppBoost {
 
         requestQueue.add(jsonArrayRequest);
         requestQueue.getCache().clear();
+
     }
 
     private static void storePackageAndImpressionstoDb()
@@ -263,6 +264,8 @@ public class AppBoost {
         TextView appDescription;
         final ImageView appImage, closeImg;
 
+
+
         mDialog=new Dialog(mActivity);
         mDialog.setContentView(R.layout.popup);
         myButton=(Button) mDialog.findViewById(R.id.installbtn);
@@ -271,8 +274,9 @@ public class AppBoost {
         appImage=(ImageView) mDialog.findViewById(R.id.mImage);
         closeImg=(ImageView) mDialog.findViewById(R.id.close_btn);
 
-
         Glide.with(mActivity.getApplicationContext()).applyDefaultRequestOptions(options).load(img_path).into(appImage);
+
+
 
          closeImg.setOnClickListener(new View.OnClickListener() {
              @Override
