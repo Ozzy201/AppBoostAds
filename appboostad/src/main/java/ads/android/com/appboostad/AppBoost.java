@@ -5,9 +5,12 @@ import android.app.Dialog;
 import android.content.ActivityNotFoundException;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
+import android.os.Build;
+import android.support.annotation.RequiresApi;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -34,6 +37,8 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
+
+import static android.content.Context.MODE_PRIVATE;
 
 
 public class AppBoost {
@@ -68,6 +73,8 @@ public class AppBoost {
     private static int adClicks;
 
     private static ArrayList<Integer> pakagesArray;
+    private static int savedval;
+    private static Boolean state = false;
 
 
 
@@ -165,6 +172,7 @@ public class AppBoost {
     {
         final JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(Request.Method.GET, url, null, new Response.Listener<JSONArray>() {
 
+            @RequiresApi(api = Build.VERSION_CODES.KITKAT)
             @Override
             public void onResponse(JSONArray response) {
 
@@ -174,11 +182,16 @@ public class AppBoost {
                     myArr.add(i);
                 }
 
-                int randomIndex = (int) (Math.random() * myArr.size());
+               randomIndex = (int) (Math.random() * myArr.size());
+                // save randomIndex using sharedPrefs.
 
-                int  rootName =myArr.get(randomIndex);
-                try {
+                    if(randomIndex == savedval)
+                    {
+                        state=true;
+                    }
 
+                    int rootName = myArr.get(randomIndex);
+                    try {
 
 
                         apptext = response.getJSONObject(rootName).getString("appName");
@@ -188,10 +201,14 @@ public class AppBoost {
 
                         img_path = "https://appboost.org/dashboard/images/" + imageUrl;
 
+                        savedval = randomIndex;
 
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
+
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+
+
             }
         }, new Response.ErrorListener() {
             @Override
@@ -204,6 +221,7 @@ public class AppBoost {
         requestQueue.getCache().clear();
 
     }
+
 
     private static void storePackageAndImpressionstoDb()
     {
@@ -379,11 +397,15 @@ public class AppBoost {
 
     public static void showAd()
     {
+            if(apptext == null || apptext.isEmpty() || state == true)  {
 
-            if(apptext == null || apptext.isEmpty())  {
-
+               //Toast.makeText(mActivity, "Values are the Same!", Toast.LENGTH_SHORT).show();
                 checkifaddisLoaded="Ad_Failed_To_Load";
+
                 stop();
+                state=false;
+                return;
+
             }
 
             else {
@@ -394,10 +416,6 @@ public class AppBoost {
                     showAds();
 
                     impressionManager();
-
-
-
-
             }
 
         }
