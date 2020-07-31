@@ -28,14 +28,22 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+
         mBtn = findViewById(R.id.mbtn);
 
         mBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
-                AppBoost.showAd();
-
+               if(AppBoost.isAdLoaded)
+               {
+                   AppBoost.showPopUpAds();
+               }
+               else{
+                   Intent intent = new Intent(MainActivity.this,SeconActivity.class);
+                   startActivity(intent);
+                   finish();
+               }
             }
         });
     }
