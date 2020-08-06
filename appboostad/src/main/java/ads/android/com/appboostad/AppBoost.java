@@ -79,9 +79,11 @@ public class AppBoost {
     private static String appdesc;
 
     private static ArrayList<Integer> myArr;
+    private static ArrayList<Integer> priorityArr;
     private static String rootName;
     private static String mchild;
     private static int randomIndex;
+    private static int priorityIndex;
     private static String imageUrl;
     private static RequestOptions options;
 
@@ -94,6 +96,8 @@ public class AppBoost {
 
     private static RequestQueue requestQueue;
     private static String url="https://appboost.org/directory/myapi.php";
+    private static String priorityUrl="https://appboost.org/directory/priorityUrl.php";
+
     private static String impressionUrl="https://appboost.org/directory/impressionCount.php";
     private static String img_path;
 
@@ -143,6 +147,7 @@ public class AppBoost {
         requestQueue = Volley.newRequestQueue(activity);
 
         myArr = new ArrayList<Integer>();
+        priorityArr = new ArrayList<Integer>();
 
         pakagesArray = new ArrayList<Integer>();
 
@@ -233,8 +238,8 @@ public class AppBoost {
 */
 
 
-    private static void readfromDb()
-    {
+    private static void readfromDb() {
+
         final JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(Request.Method.GET, url, null, new Response.Listener<JSONArray>() {
 
             @RequiresApi(api = Build.VERSION_CODES.KITKAT)
@@ -242,37 +247,40 @@ public class AppBoost {
             public void onResponse(JSONArray response) {
 
 
-                for (int i=0;i<response.length();i++)
-                {
+                for (int i = 0; i < response.length(); i++) {
                     myArr.add(i);
                 }
 
-               randomIndex = (int) (Math.random() * myArr.size());
-                // save randomIndex using sharedPrefs.
-
-                    if(randomIndex == savedval )
-                    {
-                        state=true;
-                    }
+                randomIndex = (int) (Math.random() * myArr.size());
 
 
-                    int rootName = myArr.get(randomIndex);
-                    try {
+                if (randomIndex == savedval) {
+                   // randomIndex =1;
+                   showPriorityAds();
+
+                    state = true;
+                }
 
 
-                        apptext = response.getJSONObject(rootName).getString("appName");
-                        PAKAGE_NAME = response.getJSONObject(rootName).getString("appUrl");
-                        appdesc = response.getJSONObject(rootName).getString("shortDescription");
-                        imageUrl = response.getJSONObject(rootName).getString("appIcon");
-
-                        img_path = "https://appboost.org/directory/images/" + imageUrl;
-
-                        savedval = randomIndex;
+                int rootName = myArr.get(randomIndex);
+                try {
 
 
-                    } catch (JSONException e) {
-                        e.printStackTrace();
-                    }
+                    apptext = response.getJSONObject(rootName).getString("appName");
+                    PAKAGE_NAME = response.getJSONObject(rootName).getString("appUrl");
+                    appdesc = response.getJSONObject(rootName).getString("shortDescription");
+                    imageUrl = response.getJSONObject(rootName).getString("appIcon");
+
+                    img_path = "https://appboost.org/directory/images/" + imageUrl;
+
+                    //storing last displayed ad in variable
+
+                    savedval = randomIndex;
+
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
 
 
             }
@@ -283,8 +291,61 @@ public class AppBoost {
             }
         });
 
+
         requestQueue.add(jsonArrayRequest);
         requestQueue.getCache().clear();
+
+
+
+    }
+
+    private static void showPriorityAds()
+    {
+            final JsonArrayRequest jsonArrayRequest2 = new JsonArrayRequest(Request.Method.GET, priorityUrl, null, new Response.Listener<JSONArray>() {
+
+                @RequiresApi(api = Build.VERSION_CODES.KITKAT)
+                @Override
+                public void onResponse(JSONArray response) {
+
+
+                    for (int i = 0; i < response.length(); i++) {
+                        priorityArr.add(i);
+                    }
+
+
+                    priorityIndex = (int) (Math.random() * priorityArr.size());
+
+                    int rootName = priorityArr.get(priorityIndex);
+                    try {
+
+
+                        apptext = response.getJSONObject(rootName).getString("appName");
+                        PAKAGE_NAME = response.getJSONObject(rootName).getString("appUrl");
+                        appdesc = response.getJSONObject(rootName).getString("shortDescription");
+                        imageUrl = response.getJSONObject(rootName).getString("appIcon");
+
+                        img_path = "https://appboost.org/directory/images/" + imageUrl;
+
+                        //storing last displayed ad in variable
+
+
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+
+
+                }
+            }, new Response.ErrorListener() {
+                @Override
+                public void onErrorResponse(VolleyError error) {
+
+                }
+            });
+
+            requestQueue.add(jsonArrayRequest2);
+            requestQueue.getCache().clear();
+
+
 
     }
 
@@ -297,7 +358,7 @@ public class AppBoost {
 
                 try {
 
-                    Log.d("Problem ",response);
+
                     JSONObject jsonObject = new JSONObject(response);
 
 
@@ -410,6 +471,7 @@ public class AppBoost {
     }
 
 
+    //Coming Soon
     private static void showInterstitialAds()
     {
         topAnimInterstitial = AnimationUtils.loadAnimation(mActivity,R.anim.interstitial_top_animation);
@@ -540,9 +602,11 @@ public class AppBoost {
 
     public static void showPopUpAds()
    {
-            if(apptext == null || apptext.isEmpty() || state == true || AppPakageWithExt.equals(PAKAGE_NAME))  {
+//            if(apptext == null || apptext.isEmpty() || state == true || AppPakageWithExt.equals(PAKAGE_NAME))  {
 
-               //Toast.makeText(mActivity, "Values are the Same!", Toast.LENGTH_SHORT).show();
+       if(apptext == null || apptext.isEmpty() || AppPakageWithExt.equals(PAKAGE_NAME))  {
+
+           //Toast.makeText(mActivity, "Values are the Same!", Toast.LENGTH_SHORT).show();
 
                 checkifaddisLoaded="Ad_Failed_To_Load";
 
