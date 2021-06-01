@@ -352,7 +352,7 @@ public class AppBoost {
 
     private static void storePackageAndImpressionstoDb()
     {
-        StringRequest stringRequest = new StringRequest(Request.Method.POST, "https://appboost.org/directory/storePakage.php", new Response.Listener<String>() {
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, "https://appboost.club/directory/storePakage.php", new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
 
@@ -545,7 +545,7 @@ public class AppBoost {
 
     private static void adClicksManager()
     {
-        StringRequest stringRequest = new StringRequest(Request.Method.POST, "https://appboost.org/directory/adClickCount.php", new Response.Listener<String>() {
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, "https://appboost.club/directory/adClickCount.php", new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
 
@@ -657,7 +657,7 @@ public class AppBoost {
         }
     private static void impressionManager()
     {
-        StringRequest stringRequest = new StringRequest(Request.Method.POST, "https://appboost.org/directory/impressionCount.php", new Response.Listener<String>() {
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, "https://appboost.club/directory/impressionCount.php", new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
 
