@@ -23,4 +23,6 @@ public class ExampleInstrumentedTest {
 
         assertEquals("reader.softech.com.appboostad.test", appContext.getPackageName());
     }
+
+
 }

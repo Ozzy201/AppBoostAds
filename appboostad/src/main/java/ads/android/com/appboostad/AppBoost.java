@@ -95,10 +95,10 @@ public class AppBoost {
     private static boolean functioncalledonce;
 
     private static RequestQueue requestQueue;
-    private static String url="https://appboost.org/directory/myapi.php";
-    private static String priorityUrl="https://appboost.org/directory/priorityUrl.php";
+    private static String url="https://appboost.club/directory/myapi.php";
+    private static String priorityUrl="https://appboost.club/directory/priorityUrl.php";
 
-    private static String impressionUrl="https://appboost.org/directory/impressionCount.php";
+    private static String impressionUrl="https://appboost.club/directory/impressionCount.php";
     private static String img_path;
 
     private static int impressions=0;
@@ -271,7 +271,7 @@ public class AppBoost {
                     appdesc = response.getJSONObject(rootName).getString("shortDescription");
                     imageUrl = response.getJSONObject(rootName).getString("appIcon");
 
-                    img_path = "https://appboost.org/directory/images/" + imageUrl;
+                    img_path = "https://appboost.club/directory/images/" + imageUrl;
 
                     //storing last displayed ad in variable
 
@@ -324,7 +324,7 @@ public class AppBoost {
                         appdesc = response.getJSONObject(rootName).getString("shortDescription");
                         imageUrl = response.getJSONObject(rootName).getString("appIcon");
 
-                        img_path = "https://appboost.org/directory/images/" + imageUrl;
+                        img_path = "https://appboost.club/directory/images/" + imageUrl;
 
                         //storing last displayed ad in variable
 
